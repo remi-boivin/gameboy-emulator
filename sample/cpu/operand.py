@@ -27,6 +27,7 @@ class Operand:
         Returns:
             Operand: An Operand object created from the given keyword arguments.
         """
+        return Operand(immediate=kwargs.get('immediate'), name=kwargs.get('name'), bytes=kwargs.get('bytes'), value=kwargs.get('value'), adjust=kwargs.get('adjust'))
 
     @staticmethod
     def from_dict(operand_dict):
@@ -42,6 +43,22 @@ class Operand:
         Exceptions:
             TypeError: If the dictionary is empty or if the values are of the wrong type.
         """
+        try:
+            operands = []
+            for operand in operand_dict:
+                operands.append(Operand.create(name=operand.get('name'),
+                                               immediate=operand.get(
+                    'immediate'),
+                    bytes=operand.get(
+                    'bytes'),
+                    value=operand.get(
+                    'value'),
+                    adjust=operand.get(
+                    'adjust')))
+            return operands
+        except TypeError as e:
+            print(e)
+            return []
 
     def copy(self, value=None, adjust=None):
         """
@@ -54,6 +71,18 @@ class Operand:
         Returns:
             An Operand object with the same attributes as this Operand, except for any specified in the arguments.
         """
+        if value is not None:
+            return Operand(immediate=self.immediate,
+                           name=self.name,
+                           bytes=self.bytes,
+                           value=value,
+                           adjust=adjust)
+        else:
+            return Operand(immediate=self.immediate,
+                           name=self.name,
+                           bytes=self.bytes,
+                           value=self.value,
+                           adjust=adjust)
 
     def print(self):
         """
@@ -62,3 +91,23 @@ class Operand:
         Returns:
             str: A string representation of the Operand object.
         """
+        try:
+            if self.adjust is None:
+                adjust = ""
+            else:
+                adjust = self.adjust
+            if self.value is not None:
+                if self.bytes is not None:
+                    val = hex(self.value)
+                else:
+                    val = self.value
+                v = val
+            else:
+                v = self.name
+            v = v + adjust
+            if self.immediate:
+                return v
+            return f'({abs(v)})'
+        except TypeError as e:
+            print(e)
+            return ""
