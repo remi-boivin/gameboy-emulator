@@ -1,0 +1,26 @@
+{
+  "Users": {
+    "Angelique": {
+      "password": "1234",
+      "email": "angelique@gmail.com",
+      "age": 21,
+      "country": {
+        "name": "Paris",
+        "code": "7502",
+        "address": "2 rue de la paix",
+        "city": "France"
+      }
+    },
+    "Daniel": {
+      "password": "1234",
+      "email": "daniel.pivot@outlook.com",
+      "age": 42,
+      "country": {
+        "name": "Avignon",
+        "code": "7502",
+        "address": "45 boulvard de la boite a pain",
+        "city": "France"
+      }
+    }
+  }
+}
