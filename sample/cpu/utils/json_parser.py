@@ -31,3 +31,17 @@ def json_parser(file_path, set_key, factory_func, *args, **kwargs):
         FileNotFoundError: If the specified file path does not exist or cannot be opened.
 
     """
+    dataset = {}
+
+    try:
+        with open(file_path) as file:
+            tmp = json.load(file)
+            try:
+                for key, params in tmp[set_key].items():
+                    data = factory_func(key, params, *args, **kwargs)
+                    dataset[key] = data
+            except KeyError:
+                print("Invalid Key: " + set_key)
+        return dataset
+    except FileNotFoundError:
+        print(f"File {file_path} not found")
