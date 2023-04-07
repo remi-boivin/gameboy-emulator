@@ -38,6 +38,11 @@ def read_cartridge_metadata(buffer, offset: int = 0x100):
     """
     Unpacks the cartridge metadata from `buffer` at `offset` and
     returns a `CartridgeMetadata` object.
+
+    Args: buffer (bytes): The buffer to read from.
+        offset (int): The offset to read from.
+
+    Returns: CartridgeMetadata: The cartridge metadata.
     """
     data = struct.unpack_from(CARTRIDGE_HEADER, buffer, offset=offset)
     return CartridgeMetadata._make(data)
